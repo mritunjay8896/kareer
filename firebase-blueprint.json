@@ -1,0 +1,128 @@
+{
+  "entities": {
+    "User": {
+      "path": "users/{uid}",
+      "schema": {
+        "uid": "string",
+        "email": "string",
+        "displayName": "string",
+        "role": "candidate | employer | admin",
+        "photoURL": "string?",
+        "createdAt": "timestamp",
+        "updatedAt": "timestamp"
+      }
+    },
+    "Candidate": {
+      "path": "candidates/{uid}",
+      "schema": {
+        "uid": "string",
+        "name": "string",
+        "email": "string",
+        "phone": "string",
+        "headline": "string",
+        "bio": "string",
+        "location": "string",
+        "skills": "array",
+        "education": "array",
+        "experience": "array",
+        "resumeUrl": "string?",
+        "portfolioUrl": "string?",
+        "profileCompletion": "number",
+        "createdAt": "timestamp",
+        "updatedAt": "timestamp"
+      }
+    },
+    "Employer": {
+      "path": "employers/{uid}",
+      "schema": {
+        "uid": "string",
+        "name": "string",
+        "email": "string",
+        "designation": "string",
+        "companyId": "string",
+        "phone": "string",
+        "createdAt": "timestamp",
+        "updatedAt": "timestamp"
+      }
+    },
+    "Company": {
+      "path": "companies/{companyId}",
+      "schema": {
+        "name": "string",
+        "logoUrl": "string",
+        "website": "string",
+        "industry": "string",
+        "companySize": "string",
+        "description": "string",
+        "location": "string",
+        "ownerUid": "string",
+        "verified": "boolean",
+        "createdAt": "timestamp",
+        "updatedAt": "timestamp"
+      }
+    },
+    "Job": {
+      "path": "jobs/{jobId}",
+      "schema": {
+        "id": "string",
+        "companyId": "string",
+        "employerUid": "string",
+        "title": "string",
+        "description": "string",
+        "requirements": "array",
+        "responsibilities": "array",
+        "skills": "array",
+        "category": "string",
+        "employmentType": "string",
+        "experienceLevel": "string",
+        "salaryMin": "number",
+        "salaryMax": "number",
+        "salaryCurrency": "string",
+        "location": "string",
+        "remote": "boolean",
+        "country": "string",
+        "status": "draft | published | paused | closed",
+        "applicationCount": "number",
+        "createdAt": "timestamp",
+        "updatedAt": "timestamp",
+        "expiresAt": "timestamp?"
+      }
+    },
+    "Application": {
+      "path": "applications/{applicationId}",
+      "schema": {
+        "id": "string",
+        "jobId": "string",
+        "candidateUid": "string",
+        "employerUid": "string",
+        "companyId": "string",
+        "status": "applied | reviewing | shortlisted | interview | rejected | hired",
+        "resumeUrl": "string",
+        "coverLetter": "string?",
+        "appliedAt": "timestamp",
+        "updatedAt": "timestamp"
+      }
+    },
+    "SavedJob": {
+      "path": "savedJobs/{savedJobId}",
+      "schema": {
+        "id": "string",
+        "candidateUid": "string",
+        "jobId": "string",
+        "savedAt": "timestamp"
+      }
+    },
+    "Notification": {
+      "path": "notifications/{notificationId}",
+      "schema": {
+        "id": "string",
+        "userId": "string",
+        "title": "string",
+        "message": "string",
+        "type": "string",
+        "read": "boolean",
+        "createdAt": "timestamp"
+      }
+    }
+  }
+}

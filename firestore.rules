@@ -1,0 +1,77 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Users Collection
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow create: if isOwner(userId);
+      allow update: if isOwner(userId) && (resource.data.role == request.resource.data.role || !('role' in resource.data));
+    }
+
+    // Candidates Profile Collection
+    match /candidates/{candidateId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isOwner(candidateId);
+    }
+
+    // Employers Profile Collection
+    match /employers/{employerId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isOwner(employerId);
+    }
+
+    // Companies Collection
+    match /companies/{companyId} {
+      allow read: if true;
+      allow create: if isAuthenticated() && request.resource.data.ownerUid == request.auth.uid;
+      allow update, delete: if isAuthenticated() && resource.data.ownerUid == request.auth.uid;
+    }
+
+    // Jobs Collection
+    match /jobs/{jobId} {
+      allow read: if resource.data.status == 'published' || (isAuthenticated() && resource.data.employerUid == request.auth.uid);
+      allow create: if isAuthenticated() && request.resource.data.employerUid == request.auth.uid;
+      allow update, delete: if isAuthenticated() && resource.data.employerUid == request.auth.uid;
+    }
+
+    // Applications Collection
+    match /applications/{applicationId} {
+      allow read: if isAuthenticated() && (resource.data.candidateUid == request.auth.uid || resource.data.employerUid == request.auth.uid);
+      allow create: if isAuthenticated() && request.resource.data.candidateUid == request.auth.uid;
+      allow update: if isAuthenticated() && (resource.data.candidateUid == request.auth.uid || resource.data.employerUid == request.auth.uid);
+    }
+
+    // Saved Jobs Collection
+    match /savedJobs/{savedJobId} {
+      allow read, delete: if isAuthenticated() && resource.data.candidateUid == request.auth.uid;
+      allow create: if isAuthenticated() && request.resource.data.candidateUid == request.auth.uid;
+    }
+
+    // Notifications Collection
+    match /notifications/{notificationId} {
+      allow read, update, delete: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      allow create: if isAuthenticated();
+    }
+
+    // Public read for categories & locations & mock tests
+    match /mockTests/{testId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+    match /categories/{catId} {
+      allow read: if true;
+    }
+    match /locations/{locId} {
+      allow read: if true;
+    }
+  }
+}

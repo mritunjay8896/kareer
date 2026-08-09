@@ -1,0 +1,6 @@
+{
+  "name": "glitread.com - Modern Career Platform",
+  "description": "Glitread - Premium career platform for Jobs, Internships, Government Jobs, AI Resume Builder, and Mock Tests.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

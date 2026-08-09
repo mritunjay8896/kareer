@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Premium Vibrant Orange Gradient for Mortarboard Top -->
+    <linearGradient id="glitOrange" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF5A00" />
+      <stop offset="50%" stop-color="#F97316" />
+      <stop offset="100%" stop-color="#EA580C" />
+    </linearGradient>
+
+    <!-- Deep Executive Navy Gradient for Cap Base & Tassel -->
+    <linearGradient id="glitNavy" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A8A" />
+      <stop offset="50%" stop-color="#1D4ED8" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+
+    <!-- Soft Depth Shadow -->
+    <filter id="cleanShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#0F172A" flood-opacity="0.2" />
+    </filter>
+  </defs>
+
+  <g filter="url(#cleanShadow)">
+    <!-- Skull Cap Base (Solid Deep Navy Foundation) -->
+    <path d="M 148 220 
+             L 148 325 
+             C 148 380, 200 415, 256 415 
+             C 312 415, 364 380, 364 325 
+             L 364 220 
+             L 324 238 
+             L 324 310 
+             C 324 340, 290 360, 256 360 
+             C 222 360, 188 340, 188 310 
+             L 188 238 
+             Z" 
+          fill="url(#glitNavy)" />
+
+    <!-- Mortarboard Diamond Top (Vibrant Professional Orange) -->
+    <path d="M 256 70 
+             L 480 170 
+             L 256 270 
+             L 32 170 
+             Z" 
+          fill="url(#glitOrange)" />
+
+    <!-- Subtle Top Surface Refraction Facet -->
+    <path d="M 256 70 
+             L 480 170 
+             L 256 270 
+             Z" 
+          fill="#FFFFFF" 
+          opacity="0.14" />
+
+    <!-- Mortarboard Center Button Pin -->
+    <ellipse cx="256" cy="170" rx="16" ry="12" fill="#1E3A8A" />
+    <ellipse cx="256" cy="168" rx="12" ry="8" fill="#3B82F6" />
+
+    <!-- Elegant Tassel Draping Down Left Side -->
+    <path d="M 256 170 
+             C 205 170, 105 205, 88 265 
+             L 88 335" 
+          fill="none" 
+          stroke="#1E3A8A" 
+          stroke-width="14" 
+          stroke-linecap="round" />
+
+    <!-- Tassel Ring Connector -->
+    <circle cx="88" cy="335" r="12" fill="#1E3A8A" />
+
+    <!-- Tassel Fringe Fob (Orange Gradient) -->
+    <path d="M 72 335 
+             L 104 335 
+             L 112 410 
+             C 112 418, 101 425, 88 425 
+             C 75 425, 64 418, 64 410 
+             Z" 
+          fill="url(#glitOrange)" />
+  </g>
+</svg>
