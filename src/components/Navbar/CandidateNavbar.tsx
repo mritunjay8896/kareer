@@ -13,7 +13,8 @@ import {
   Sparkles, 
   Building2,
   ChevronDown,
-  ArrowRight
+  ArrowRight,
+  Globe
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { MegaMenu } from './MegaMenu';
@@ -24,6 +25,21 @@ export const CandidateNavbar: React.FC = () => {
   const [activeMenu, setActiveMenu] = useState<'jobs' | 'bpo' | 'c2h' | 'internships' | 'government' | 'gulf' | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [scrolled, setScrolled] = useState(false);
+  const [selectedLang, setSelectedLang] = useState<string>('English');
+  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
+
+  const languagesList = [
+    { code: 'en', label: 'English' },
+    { code: 'hi', label: 'हिन्दी (Hindi)' },
+    { code: 'ta', label: 'தமிழ் (Tamil)' },
+    { code: 'te', label: 'తెలుగు (Telugu)' },
+    { code: 'mr', label: 'मराठी (Marathi)' },
+    { code: 'gu', label: 'ગુજરાતી (Gujarati)' },
+    { code: 'bn', label: 'বাংলা (Bengali)' },
+    { code: 'kn', label: 'கன்னட (Kannada)' },
+    { code: 'ml', label: 'മലയാളം (Malayalam)' },
+    { code: 'pa', label: 'ਪੰਜਾਬੀ (Punjabi)' },
+  ];
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -49,7 +65,7 @@ export const CandidateNavbar: React.FC = () => {
     { label: 'BPO Jobs', key: 'bpo', path: '/jobs?category=BPO' },
     { label: 'C2H Jobs', key: 'c2h', path: '/jobs?type=Contract' },
     { label: 'Internships', key: 'internships', path: '/internships' },
-    { label: 'Govt Notices', key: 'government', path: '/government-jobs' },
+    { label: 'Govt Jobs', key: 'government', path: '/government-jobs' },
     { label: 'Gulf & Saudi', key: 'gulf', path: '/gulf-jobs' },
   ];
 
@@ -158,6 +174,48 @@ export const CandidateNavbar: React.FC = () => {
         {/* Right Header Actions */}
         <div className="hidden md:flex items-center gap-2 shrink-0">
           
+          {/* Language Selector Dropdown */}
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setLangDropdownOpen(!langDropdownOpen)}
+              className="px-2.5 py-1.5 rounded-xl text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200/80 border border-slate-200 transition-all flex items-center gap-1.5 shrink-0 cursor-pointer"
+              title="Select Portal Language"
+            >
+              <Globe className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+              <span className="max-w-[70px] truncate">{selectedLang}</span>
+              <ChevronDown className={`w-3 h-3 text-slate-500 transition-transform ${langDropdownOpen ? 'rotate-180' : ''}`} />
+            </button>
+
+            {langDropdownOpen && (
+              <div 
+                className="absolute right-0 top-full mt-1.5 w-48 bg-white rounded-xl border border-slate-200 shadow-xl py-1.5 z-50 animate-in fade-in slide-in-from-top-1 duration-150"
+                onMouseLeave={() => setLangDropdownOpen(false)}
+              >
+                <div className="px-3 py-1 text-[10px] font-black uppercase text-slate-400 border-b border-slate-100 mb-1">
+                  Select Language / भाषा
+                </div>
+                {languagesList.map((lang) => (
+                  <button
+                    key={lang.code}
+                    onClick={() => {
+                      setSelectedLang(lang.label.split(' ')[0]);
+                      setLangDropdownOpen(false);
+                    }}
+                    className={`w-full text-left px-3 py-1.5 text-xs font-semibold hover:bg-blue-50 transition-colors flex items-center justify-between ${
+                      selectedLang === lang.label.split(' ')[0] ? 'text-blue-700 bg-blue-50/60 font-bold' : 'text-slate-700'
+                    }`}
+                  >
+                    <span>{lang.label}</span>
+                    {selectedLang === lang.label.split(' ')[0] && (
+                      <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
           {/* "For Employers" CTA - Links to Employers portal */}
           <Link
             to="/employers"

@@ -16,7 +16,8 @@ import {
   UserCheck,
   Building2,
   Sparkles,
-  Search
+  Search,
+  ShieldCheck
 } from 'lucide-react';
 
 interface LeftSidebarRailProps {
@@ -51,7 +52,7 @@ export const LeftSidebarRail: React.FC<LeftSidebarRailProps> = ({
     { label: 'BPO Opportunities', icon: Headphones, path: '/jobs', action: () => onNavClick('BPO Jobs') },
     { label: 'C2H Contracts', icon: Handshake, path: '/jobs', action: () => onNavClick('C2H Jobs') },
     { label: 'Internships', icon: GraduationCap, path: '/jobs', action: () => onNavClick('Internships') },
-    { label: 'Govt Notices', icon: Landmark, path: '/jobs', action: () => onNavClick('Government Jobs') },
+    { label: 'Govt Jobs', icon: Landmark, path: '/jobs', action: () => onNavClick('Government Jobs') },
     { label: 'Gulf & Saudi', icon: Globe, path: '/jobs', action: () => onNavClick('Gulf & Saudi Jobs') },
   ];
 
@@ -176,6 +177,20 @@ export const LeftSidebarRail: React.FC<LeftSidebarRailProps> = ({
         </div>
 
         <div className="w-8 h-px bg-slate-200/80 my-1" />
+
+        {/* Admin Portal CMS Shortcut */}
+        <div className="relative group w-full flex justify-center">
+          <Link
+            to="/admin/login"
+            className="w-10 h-10 rounded-xl flex items-center justify-center transition-all bg-emerald-50 border border-emerald-300 text-emerald-700 hover:bg-emerald-100"
+          >
+            <ShieldCheck className="w-5 h-5" />
+          </Link>
+          <div className="absolute left-full ml-3 px-3 py-1.5 bg-slate-900 text-white text-xs font-bold rounded-xl shadow-xl whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-200 z-50 translate-x-1 group-hover:translate-x-0 border border-slate-800 flex items-center gap-1.5">
+            <span className="text-emerald-400">Govt Jobs Admin CMS</span>
+            <span className="text-[10px] text-slate-300 ml-1">(Super Admin Login)</span>
+          </div>
+        </div>
 
         {/* Role Switcher Icon Button */}
         <div className="relative group w-full flex justify-center">

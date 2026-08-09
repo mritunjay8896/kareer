@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   Send, 
   Heart, 
@@ -143,11 +144,17 @@ export const Footer: React.FC<FooterProps> = ({ onSubscribeNewsletter, onLinkCli
           <div className="space-y-3">
             <h5 className="font-bold text-white uppercase tracking-wider font-display text-[11px] text-blue-400">Govt Exams</h5>
             <ul className="space-y-2 text-slate-400">
-              {['SSC CGL & CHSL', 'UPSC Civil Services', 'Railways RRB NTPC', 'Banking IBPS & SBI', 'State PSC Exams', 'Latest Exam Results'].map((l) => (
+              {['SSC CGL & CHSL', 'UPSC Civil Services', 'Railways RRB NTPC', 'Banking IBPS & SBI', 'State PSC Exams'].map((l) => (
                 <li key={l}>
                   <button onClick={() => onLinkClick(l)} className="hover:text-white transition-colors">{l}</button>
                 </li>
               ))}
+              <li>
+                <Link to="/admin/login" className="text-emerald-400 hover:text-emerald-300 font-bold transition-colors flex items-center gap-1">
+                  <ShieldCheck className="w-3.5 h-3.5" />
+                  <span>Govt Jobs Admin Login</span>
+                </Link>
+              </li>
             </ul>
           </div>
 

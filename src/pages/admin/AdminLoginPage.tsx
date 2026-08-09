@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, Navigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { ShieldCheck, Lock, Mail, ArrowRight, AlertCircle, Building2, Sparkles } from 'lucide-react';
 
@@ -14,8 +14,7 @@ export const AdminLoginPage: React.FC = () => {
 
   // If already logged in as super admin, redirect to admin dashboard
   if (currentUser && userRole === 'admin') {
-    navigate('/admin/dashboard', { replace: true });
-    return null;
+    return <Navigate to="/admin/dashboard" replace />;
   }
 
   const handleSubmit = async (e: React.FormEvent) => {

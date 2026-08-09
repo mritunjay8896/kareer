@@ -2,6 +2,8 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { GovernmentJob } from '../../types';
 import { fetchAllGovernmentJobs, deleteGovernmentJob, duplicateGovernmentJob, saveGovernmentJob } from '../../lib/govJobs';
+import { BulkJsonUploadModal } from '../../components/Admin/BulkJsonUploadModal';
+import { ALL_INDIA_OPTION, INDIAN_STATES, UNION_TERRITORIES } from '../../data/indianStates';
 import { 
   PlusCircle, 
   Search, 
@@ -18,13 +20,15 @@ import {
   Calendar,
   CheckSquare,
   Square,
-  ArrowUpDown
+  ArrowUpDown,
+  Upload
 } from 'lucide-react';
 
 export const AdminJobsListPage: React.FC = () => {
   const navigate = useNavigate();
   const [jobs, setJobs] = useState<GovernmentJob[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isBulkModalOpen, setIsBulkModalOpen] = useState(false);
 
   // Filters
   const [searchTerm, setSearchTerm] = useState('');
@@ -135,13 +139,23 @@ export const AdminJobsListPage: React.FC = () => {
           </p>
         </div>
 
-        <Link
-          to="/admin/jobs/new"
-          className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm rounded-xl transition-all shadow-md flex items-center justify-center gap-2"
-        >
-          <PlusCircle className="w-4 h-4" />
-          <span>Add New Government Job</span>
-        </Link>
+        <div className="flex flex-wrap items-center gap-2.5">
+          <button
+            onClick={() => setIsBulkModalOpen(true)}
+            className="px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-emerald-400 font-bold text-xs sm:text-sm rounded-xl transition-all shadow-md flex items-center justify-center gap-2 border border-slate-800"
+          >
+            <Upload className="w-4 h-4 text-emerald-400" />
+            <span>Bulk Upload JSON</span>
+          </button>
+
+          <Link
+            to="/admin/jobs/new"
+            className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm rounded-xl transition-all shadow-md flex items-center justify-center gap-2"
+          >
+            <PlusCircle className="w-4 h-4" />
+            <span>Add New Government Job</span>
+          </Link>
+        </div>
       </div>
 
       {/* Filter Toolbar */}
@@ -178,8 +192,14 @@ export const AdminJobsListPage: React.FC = () => {
               onChange={(e) => setStateFilter(e.target.value)}
               className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 font-medium focus:bg-white focus:border-emerald-500"
             >
-              <option value="all">All States</option>
-              {states.map(s => <option key={s} value={s}>{s}</option>)}
+              <option value="all">All States & Regions</option>
+              <option value={ALL_INDIA_OPTION}>{ALL_INDIA_OPTION}</option>
+              <optgroup label="28 Indian States">
+                {INDIAN_STATES.map(s => <option key={s} value={s}>{s}</option>)}
+              </optgroup>
+              <optgroup label="8 Union Territories">
+                {UNION_TERRITORIES.map(ut => <option key={ut} value={ut}>{ut}</option>)}
+              </optgroup>
             </select>
           </div>
 
@@ -418,6 +438,15 @@ export const AdminJobsListPage: React.FC = () => {
           </div>
         </div>
       )}
+      {/* Bulk JSON Upload Modal */}
+      <BulkJsonUploadModal
+        isOpen={isBulkModalOpen}
+        onClose={() => setIsBulkModalOpen(false)}
+        onSuccess={() => {
+          setIsBulkModalOpen(false);
+          loadJobs();
+        }}
+      />
     </div>
   );
 };

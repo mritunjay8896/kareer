@@ -284,7 +284,11 @@ function MainAppContent() {
             <Route path="dashboard" element={<AdminDashboardPage />} />
             <Route path="jobs" element={<AdminJobsListPage />} />
             <Route path="jobs/new" element={<AdminJobFormPage />} />
+            <Route path="jobs/create" element={<AdminJobFormPage />} />
             <Route path="jobs/edit/:id" element={<AdminJobFormPage />} />
+            <Route path="jobs/:id/edit" element={<AdminJobFormPage />} />
+            <Route path="job/new" element={<AdminJobFormPage />} />
+            <Route path="job/:id/edit" element={<AdminJobFormPage />} />
           </Route>
 
           {/* CANDIDATE ROUTES */}

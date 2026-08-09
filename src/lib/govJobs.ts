@@ -78,6 +78,71 @@ export async function saveGovernmentJob(job: GovernmentJob, authToken?: string):
   }
 }
 
+export async function bulkSaveGovernmentJobs(jobs: Partial<GovernmentJob>[], authToken?: string): Promise<{ success: boolean; count?: number; savedJobs?: GovernmentJob[]; errors?: any[]; error?: string }> {
+  try {
+    const response = await fetch('/api/admin/jobs/bulk', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(authToken ? { 'Authorization': `Bearer ${authToken}` } : {})
+      },
+      body: JSON.stringify(jobs)
+    });
+
+    if (response.ok) {
+      const resData = await response.json();
+      const savedList: GovernmentJob[] = resData.savedJobs || [];
+      for (const savedJob of savedList) {
+        const index = memoryJobs.findIndex(j => j.id === savedJob.id || j.slug === savedJob.slug);
+        if (index >= 0) {
+          memoryJobs[index] = savedJob;
+        } else {
+          memoryJobs.unshift(savedJob);
+        }
+      }
+      return {
+        success: true,
+        count: resData.count || savedList.length,
+        savedJobs: savedList,
+        errors: resData.errors || []
+      };
+    } else {
+      const errorData = await response.json().catch(() => ({ error: 'Bulk upload failed' }));
+      return { success: false, error: errorData.error || 'Server rejected bulk jobs upload' };
+    }
+  } catch (err: any) {
+    // Client-side fallback bulk update
+    const savedJobs: GovernmentJob[] = [];
+    for (const j of jobs) {
+      if (!j.title) continue;
+      const slug = j.slug || j.id || j.title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+      const fullJob: GovernmentJob = {
+        id: slug,
+        slug,
+        title: j.title,
+        organization: j.organization || 'Government Department',
+        category: j.category || 'Central Govt',
+        state: j.state || 'All India',
+        status: j.status || 'active',
+        postDate: j.postDate || new Date().toISOString().split('T')[0],
+        updatedDate: j.updatedDate || new Date().toISOString().split('T')[0],
+        importantDates: j.importantDates || [],
+        applicationFee: j.applicationFee || [],
+        vacancyDetails: j.vacancyDetails || { totalVacancy: 0, postTable: [] },
+        eligibility: j.eligibility || [],
+        syllabus: (j.syllabus || []) as any,
+        ...j
+      } as unknown as GovernmentJob;
+
+      const idx = memoryJobs.findIndex(m => m.id === fullJob.id);
+      if (idx >= 0) memoryJobs[idx] = fullJob;
+      else memoryJobs.unshift(fullJob);
+      savedJobs.push(fullJob);
+    }
+    return { success: true, count: savedJobs.length, savedJobs, errors: [] };
+  }
+}
+
 export async function deleteGovernmentJob(id: string, authToken?: string): Promise<{ success: boolean; error?: string }> {
   try {
     const response = await fetch(`/api/admin/jobs/${id}`, {

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { GovernmentJob } from '../../types';
 import { fetchAllGovernmentJobs, deleteGovernmentJob, duplicateGovernmentJob } from '../../lib/govJobs';
+import { BulkJsonUploadModal } from '../../components/Admin/BulkJsonUploadModal';
 import { 
   PlusCircle, 
   FileText, 
@@ -18,7 +19,8 @@ import {
   Search,
   Building2,
   Calendar,
-  Sparkles
+  Sparkles,
+  Upload
 } from 'lucide-react';
 
 export const AdminDashboardPage: React.FC = () => {
@@ -26,6 +28,7 @@ export const AdminDashboardPage: React.FC = () => {
   const [jobs, setJobs] = useState<GovernmentJob[]>([]);
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
+  const [isBulkModalOpen, setIsBulkModalOpen] = useState(false);
 
   const loadJobs = async () => {
     setLoading(true);
@@ -82,13 +85,21 @@ export const AdminDashboardPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <button
               onClick={loadJobs}
               className="p-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl border border-slate-700 transition-colors shadow-xs"
               title="Refresh Data"
             >
               <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+            </button>
+
+            <button
+              onClick={() => setIsBulkModalOpen(true)}
+              className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-slate-700 font-bold text-xs sm:text-sm rounded-xl transition-all shadow-md flex items-center gap-2"
+            >
+              <Upload className="w-4 h-4 text-emerald-400" />
+              <span>Bulk Upload JSON</span>
             </button>
 
             <Link
@@ -292,6 +303,16 @@ export const AdminDashboardPage: React.FC = () => {
           </div>
         )}
       </div>
+
+      {/* Bulk JSON Upload Modal */}
+      <BulkJsonUploadModal
+        isOpen={isBulkModalOpen}
+        onClose={() => setIsBulkModalOpen(false)}
+        onSuccess={() => {
+          setIsBulkModalOpen(false);
+          loadJobs();
+        }}
+      />
     </div>
   );
 };

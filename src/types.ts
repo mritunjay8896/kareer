@@ -371,6 +371,7 @@ export interface GovernmentJob {
   department: string;
   category: 'SSC' | 'Banking' | 'Railways' | 'UPSC' | 'Police' | 'Teaching' | 'Defense' | 'State PSC' | 'Other';
   state: string;
+  language?: string;
   postDate: string;
   updatedDate: string;
   status: 'draft' | 'active' | 'closed' | 'upcoming';
@@ -399,6 +400,12 @@ export interface GovernmentJob {
   mockTestId?: string;
   mockTestUrl?: string;
   relatedJobs?: string[];
+  // On-Page SEO & Google Discover Metadata
+  metaTitle?: string;
+  metaDescription?: string;
+  keywords?: string[];
+  canonicalUrl?: string;
+  ogImageUrl?: string;
   createdAt?: string;
   updatedAt?: string;
   lastUpdatedBy?: string;

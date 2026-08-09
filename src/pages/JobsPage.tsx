@@ -49,7 +49,8 @@ export const JobsPage: React.FC<JobsPageProps> = ({
     salaryRanges: [],
     departments: [],
     companyTypes: [],
-    postedWithin: 'all'
+    postedWithin: 'all',
+    languages: []
   });
 
   const resetFilters = () => {
@@ -62,7 +63,8 @@ export const JobsPage: React.FC<JobsPageProps> = ({
       salaryRanges: [],
       departments: [],
       companyTypes: [],
-      postedWithin: 'all'
+      postedWithin: 'all',
+      languages: []
     });
     setCurrentPage(1);
   };

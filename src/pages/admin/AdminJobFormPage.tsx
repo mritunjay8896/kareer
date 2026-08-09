@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { GovernmentJob } from '../../types';
 import { fetchGovernmentJobBySlugOrId, saveGovernmentJob } from '../../lib/govJobs';
+import { ALL_INDIA_OPTION, INDIAN_STATES, UNION_TERRITORIES } from '../../data/indianStates';
 import { 
   Save, 
   ArrowLeft, 
@@ -32,6 +33,7 @@ const emptyJob: GovernmentJob = {
   department: '',
   category: 'SSC',
   state: 'All India',
+  language: 'English',
   postDate: new Date().toISOString().split('T')[0],
   updatedDate: new Date().toISOString().split('T')[0],
   status: 'draft',
@@ -100,6 +102,17 @@ const emptyJob: GovernmentJob = {
   relatedJobs: []
 };
 
+import { 
+  getOptimizedMetaTitle, 
+  getOptimizedMetaDescription, 
+  getOptimizedKeywords, 
+  generateJobPostingSchema, 
+  generateBreadcrumbSchema, 
+  generateFaqSchema, 
+  generateAutomatedJobFaqs,
+  SITE_DOMAIN
+} from '../../utils/seoHelpers';
+
 type FormSection = 
   | 'basic' 
   | 'dates_fees' 
@@ -109,7 +122,8 @@ type FormSection =
   | 'syllabus' 
   | 'pattern' 
   | 'previous_data' 
-  | 'links_media';
+  | 'links_media'
+  | 'seo_discover';
 
 export const AdminJobFormPage: React.FC = () => {
   const navigate = useNavigate();
@@ -204,6 +218,7 @@ export const AdminJobFormPage: React.FC = () => {
     { id: 'pattern', label: '7. Exam Pattern', icon: FileSpreadsheet },
     { id: 'previous_data', label: '8. Cutoff & Analytics', icon: BarChart3 },
     { id: 'links_media', label: '9. Official Links & Video', icon: Link2 },
+    { id: 'seo_discover', label: '10. SEO & Google Discover', icon: Sparkles },
   ];
 
   return (
@@ -386,14 +401,63 @@ export const AdminJobFormPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">State / Region</label>
-                <input
-                  type="text"
-                  value={formData.state}
-                  onChange={(e) => setFormData(prev => ({ ...prev, state: e.target.value }))}
-                  placeholder="e.g., All India or Uttar Pradesh"
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:border-emerald-500"
-                />
+                <label className="block text-xs font-bold text-slate-700 mb-1">State / Region *</label>
+                <select
+                  value={
+                    [ALL_INDIA_OPTION, ...INDIAN_STATES, ...UNION_TERRITORIES].includes(formData.state)
+                      ? formData.state
+                      : 'CUSTOM'
+                  }
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    if (val === 'CUSTOM') {
+                      setFormData(prev => ({ ...prev, state: '' }));
+                    } else {
+                      setFormData(prev => ({ ...prev, state: val }));
+                    }
+                  }}
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:bg-white focus:border-emerald-500"
+                >
+                  <option value={ALL_INDIA_OPTION}>All India / Central Govt</option>
+                  
+                  <optgroup label="28 Indian States">
+                    {INDIAN_STATES.map((st) => (
+                      <option key={st} value={st}>{st}</option>
+                    ))}
+                  </optgroup>
+
+                  <optgroup label="8 Union Territories">
+                    {UNION_TERRITORIES.map((ut) => (
+                      <option key={ut} value={ut}>{ut}</option>
+                    ))}
+                  </optgroup>
+
+                  <option value="CUSTOM">Custom State / Multiple States...</option>
+                </select>
+
+                {(![ALL_INDIA_OPTION, ...INDIAN_STATES, ...UNION_TERRITORIES].includes(formData.state)) && (
+                  <input
+                    type="text"
+                    value={formData.state}
+                    onChange={(e) => setFormData(prev => ({ ...prev, state: e.target.value }))}
+                    placeholder="Enter custom state or region (e.g. UP & MP)"
+                    className="w-full mt-2 px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:border-emerald-500"
+                  />
+                )}
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Notification Language / Exam Medium</label>
+                <select
+                  value={(formData as any).language || 'English'}
+                  onChange={(e) => setFormData(prev => ({ ...prev, language: e.target.value } as any))}
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:bg-white focus:border-emerald-500"
+                >
+                  <option value="English">English Medium</option>
+                  <option value="Hindi">हिन्दी / Hindi Medium</option>
+                  <option value="Bilingual">Bilingual (English + Hindi)</option>
+                  <option value="Regional">Regional Language (Tamil, Telugu, Bengali, etc.)</option>
+                </select>
               </div>
 
               <div className="sm:col-span-2">
@@ -1190,6 +1254,165 @@ export const AdminJobFormPage: React.FC = () => {
                   className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono"
                 />
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* TAB 10: SEO & GOOGLE DISCOVER */}
+        {activeTab === 'seo_discover' && (
+          <div className="space-y-6">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div>
+                <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider text-emerald-600">
+                  Search Engine Optimization & Google Discover Configuration
+                </h3>
+                <p className="text-xs text-slate-500">
+                  Configure custom meta titles, descriptions, keywords, and previews to maximize Google Discover & Search rankings.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Form Controls Column */}
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    Custom SEO Meta Title (Leave blank for auto-generator)
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.metaTitle || ''}
+                    onChange={(e) => setFormData(prev => ({ ...prev, metaTitle: e.target.value }))}
+                    placeholder={getOptimizedMetaTitle(formData)}
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:bg-white focus:border-emerald-500"
+                  />
+                  <span className="text-[10px] text-slate-500 mt-1 block">
+                    Current Title Length: {(formData.metaTitle || getOptimizedMetaTitle(formData)).length} chars (Recommended: 50-65)
+                  </span>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    Custom SEO Meta Description (Leave blank for auto-generator)
+                  </label>
+                  <textarea
+                    rows={3}
+                    value={formData.metaDescription || ''}
+                    onChange={(e) => setFormData(prev => ({ ...prev, metaDescription: e.target.value }))}
+                    placeholder={getOptimizedMetaDescription(formData)}
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:border-emerald-500"
+                  />
+                  <span className="text-[10px] text-slate-500 mt-1 block">
+                    Current Description Length: {(formData.metaDescription || getOptimizedMetaDescription(formData)).length} chars (Recommended: 120-160)
+                  </span>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    Keywords (Comma-separated)
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.keywords ? formData.keywords.join(', ') : ''}
+                    onChange={(e) => {
+                      const arr = e.target.value.split(',').map(s => s.trim()).filter(Boolean);
+                      setFormData(prev => ({ ...prev, keywords: arr }));
+                    }}
+                    placeholder={getOptimizedKeywords(formData).join(', ')}
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    Google Discover Card Image URL (High Resolution Image)
+                  </label>
+                  <input
+                    type="url"
+                    value={formData.ogImageUrl || ''}
+                    onChange={(e) => setFormData(prev => ({ ...prev, ogImageUrl: e.target.value }))}
+                    placeholder="https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80"
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono"
+                  />
+                  <span className="text-[10px] text-slate-500 mt-1 block">
+                    Google Discover requires high-resolution images (min 1200px wide) for maximum click-through rates.
+                  </span>
+                </div>
+              </div>
+
+              {/* Live Preview Column */}
+              <div className="space-y-5">
+                {/* 1. Google Search SERP Snippet Preview */}
+                <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2">
+                  <div className="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider flex items-center gap-1">
+                    <Sparkles className="w-3.5 h-3.5 text-blue-600" />
+                    <span>Live Google Search Snippet Preview</span>
+                  </div>
+                  
+                  <div className="bg-white p-3.5 rounded-xl border border-slate-200 shadow-2xs font-sans">
+                    <div className="text-[11px] text-slate-600 flex items-center gap-1 truncate">
+                      <span className="font-bold text-slate-800">Glitread</span>
+                      <span className="text-slate-400">•</span>
+                      <span className="text-slate-500 truncate">{`${SITE_DOMAIN}/government-jobs/${formData.slug || 'job-id'}`}</span>
+                    </div>
+                    <div className="text-sm font-semibold text-blue-800 hover:underline cursor-pointer mt-0.5 line-clamp-1">
+                      {getOptimizedMetaTitle(formData)}
+                    </div>
+                    <p className="text-xs text-slate-600 mt-1 line-clamp-2 leading-snug">
+                      {getOptimizedMetaDescription(formData)}
+                    </p>
+                  </div>
+                </div>
+
+                {/* 2. Google Discover Feed Card Preview */}
+                <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2">
+                  <div className="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider flex items-center gap-1">
+                    <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>Google Discover Mobile Feed Card Preview</span>
+                  </div>
+
+                  <div className="max-w-xs mx-auto bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden">
+                    <div className="h-36 bg-slate-200 relative overflow-hidden">
+                      <img
+                        src={formData.ogImageUrl || "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=800&q=80"}
+                        alt={formData.title}
+                        className="w-full h-full object-cover"
+                        referrerPolicy="no-referrer"
+                      />
+                      <div className="absolute top-2 left-2 bg-slate-900/80 backdrop-blur-xs text-white text-[9px] font-black px-2 py-0.5 rounded-full uppercase">
+                        {formData.organization || 'Govt Notice'}
+                      </div>
+                    </div>
+                    <div className="p-3">
+                      <h4 className="text-xs font-black text-slate-900 line-clamp-2 leading-snug">
+                        {formData.title}
+                      </h4>
+                      <p className="text-[11px] text-slate-500 mt-1 line-clamp-2">
+                        {formData.shortInformation || getOptimizedMetaDescription(formData)}
+                      </p>
+                      <div className="mt-2 text-[9px] text-slate-400 font-bold uppercase tracking-wider flex items-center justify-between">
+                        <span>glitread.com</span>
+                        <span>{formData.updatedDate || 'Today'}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Generated Schema JSON Inspector */}
+            <div className="bg-slate-900 text-slate-200 p-4 rounded-2xl border border-slate-800 space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-emerald-400 font-mono">
+                  Auto-Generated Google JobPosting JSON-LD Schema
+                </span>
+                <span className="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded-md font-mono">
+                  Schema.org / JobPosting
+                </span>
+              </div>
+              <pre className="text-[11px] font-mono bg-slate-950 p-3 rounded-xl overflow-x-auto text-slate-300 max-h-48 border border-slate-800">
+                {JSON.stringify(generateJobPostingSchema(formData), null, 2)}
+              </pre>
             </div>
           </div>
         )}

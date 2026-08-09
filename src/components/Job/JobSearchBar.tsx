@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Search, MapPin, Briefcase, X, Sparkles } from 'lucide-react';
+import { Search, MapPin, Briefcase, Globe, X, Sparkles } from 'lucide-react';
 
 interface JobSearchBarProps {
   query: string;
   location: string;
   experience: string;
-  onSearchChange: (query: string, location: string, experience: string) => void;
+  language?: string;
+  onSearchChange: (query: string, location: string, experience: string, language?: string) => void;
   onSearchSubmit: () => void;
 }
 
@@ -13,9 +14,11 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
   query,
   location,
   experience,
+  language = '',
   onSearchChange,
   onSearchSubmit
 }) => {
+  const [selectedLang, setSelectedLang] = useState(language);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
   const popularSearches = [
@@ -75,11 +78,11 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
         <div className="hidden md:block h-7 w-[1px] bg-slate-200"></div>
 
         {/* Experience Select */}
-        <div className="relative w-full md:w-44 flex items-center gap-2 px-3 py-2 bg-slate-50 md:bg-transparent rounded-xl border border-slate-200/60 md:border-none">
+        <div className="relative w-full md:w-40 flex items-center gap-2 px-3 py-2 bg-slate-50 md:bg-transparent rounded-xl border border-slate-200/60 md:border-none">
           <Briefcase className="w-5 h-5 text-slate-400 flex-shrink-0" />
           <select
             value={experience}
-            onChange={(e) => onSearchChange(query, location, e.target.value)}
+            onChange={(e) => onSearchChange(query, location, e.target.value, selectedLang)}
             className="w-full bg-transparent text-xs sm:text-sm font-medium text-slate-700 focus:outline-none cursor-pointer"
           >
             <option value="">Any Experience</option>
@@ -87,6 +90,33 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
             <option value="1-3 Yrs">1-3 Years</option>
             <option value="3-5 Yrs">3-5 Years</option>
             <option value="5+ Yrs">5+ Years</option>
+          </select>
+        </div>
+
+        <div className="hidden md:block h-7 w-[1px] bg-slate-200"></div>
+
+        {/* Language Select */}
+        <div className="relative w-full md:w-36 flex items-center gap-2 px-3 py-2 bg-slate-50 md:bg-transparent rounded-xl border border-slate-200/60 md:border-none">
+          <Globe className="w-5 h-5 text-slate-400 flex-shrink-0" />
+          <select
+            value={selectedLang}
+            onChange={(e) => {
+              setSelectedLang(e.target.value);
+              onSearchChange(query, location, experience, e.target.value);
+            }}
+            className="w-full bg-transparent text-xs sm:text-sm font-medium text-slate-700 focus:outline-none cursor-pointer"
+          >
+            <option value="">Any Language</option>
+            <option value="English">English</option>
+            <option value="Hindi">हिन्दी (Hindi)</option>
+            <option value="Tamil">தமிழ் (Tamil)</option>
+            <option value="Telugu">తెలుగు (Telugu)</option>
+            <option value="Marathi">मराठी (Marathi)</option>
+            <option value="Gujarati">ગુજરાતી (Gujarati)</option>
+            <option value="Bengali">বাংলা (Bengali)</option>
+            <option value="Kannada">ಕನ್ನಡ (Kannada)</option>
+            <option value="Malayalam">മലയാളം (Malayalam)</option>
+            <option value="Punjabi">ਪੰਜਾਬੀ (Punjabi)</option>
           </select>
         </div>
 

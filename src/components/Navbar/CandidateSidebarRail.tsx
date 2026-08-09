@@ -31,7 +31,7 @@ export const CandidateSidebarRail: React.FC = () => {
     { label: 'Home', icon: Home, path: '/' },
     { label: 'All Vacancies', icon: Briefcase, path: '/jobs' },
     { label: 'Internships', icon: GraduationCap, path: '/internships' },
-    { label: 'Govt Notices', icon: Landmark, path: '/government-jobs' },
+    { label: 'Govt Jobs', icon: Landmark, path: '/government-jobs' },
     { label: 'Gulf & Saudi', icon: Globe, path: '/gulf-jobs' },
     { label: 'Mock Tests', icon: FileCode, path: '/mock-tests' },
     { label: 'Resume Builder', icon: FileText, path: '/resume-builder' },

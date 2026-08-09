@@ -3,6 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import govBannerImg from '../image1/governmentjobbannerimg.png';
 import { GovernmentJob } from '../types';
 import { fetchAllGovernmentJobs } from '../lib/govJobs';
+import { ALL_INDIA_OPTION, INDIAN_STATES, UNION_TERRITORIES } from '../data/indianStates';
+import { SEOHead } from '../components/SEO/SEOHead';
+import { generateBreadcrumbSchema, SITE_DOMAIN } from '../utils/seoHelpers';
 import { 
   Building2, 
   Search, 
@@ -31,7 +34,8 @@ import {
   FileCheck,
   CreditCard,
   BellRing,
-  HelpCircle
+  HelpCircle,
+  Globe
 } from 'lucide-react';
 
 export const GovJobsPublicListPage: React.FC = () => {
@@ -42,6 +46,7 @@ export const GovJobsPublicListPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeCategoryFilter, setActiveCategoryFilter] = useState<string>('All');
   const [selectedState, setSelectedState] = useState<string>('All');
+  const [selectedLanguage, setSelectedLanguage] = useState<string>('All');
   const [bookmarkedIds, setBookmarkedIds] = useState<string[]>([]);
 
   useEffect(() => {
@@ -78,9 +83,14 @@ export const GovJobsPublicListPage: React.FC = () => {
 
       const matchesState = selectedState === 'All' || job.state === selectedState;
 
-      return matchesSearch && matchesCat && matchesState;
+      const matchesLang = selectedLanguage === 'All' || 
+        (job as any).language === selectedLanguage || 
+        (selectedLanguage === 'Hindi' && job.title.toLowerCase().includes('hindi')) ||
+        (selectedLanguage === 'English' && !job.title.toLowerCase().includes('hindi'));
+
+      return matchesSearch && matchesCat && matchesState && matchesLang;
     });
-  }, [jobs, searchTerm, activeCategoryFilter, selectedState]);
+  }, [jobs, searchTerm, activeCategoryFilter, selectedState, selectedLanguage]);
 
   // Categories list for grid
   const categoryGrid = [
@@ -266,8 +276,48 @@ export const GovJobsPublicListPage: React.FC = () => {
     }
   ];
 
+  // Generate ItemList JSON-LD Schema for Google Search
+  const itemListSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    'name': 'Latest Government Jobs 2026 Notifications',
+    'description': 'Active government recruitment notifications across Central and State departments in India.',
+    'numberOfItems': jobs.length,
+    'itemListElement': jobs.slice(0, 15).map((job, idx) => ({
+      '@type': 'ListItem',
+      'position': idx + 1,
+      'name': job.title,
+      'url': `${SITE_DOMAIN}/government-jobs/${job.slug || job.id}`
+    }))
+  };
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: SITE_DOMAIN },
+    { name: 'Government Jobs (Sarkari Naukri)', url: `${SITE_DOMAIN}/government-jobs` }
+  ]);
+
   return (
     <div className="min-h-screen bg-slate-50/70 font-sans text-slate-800 pb-16">
+      <SEOHead
+        title="Latest Government Jobs 2026 (Sarkari Naukri): SSC, UPSC, Railway RRB, Banking & State Jobs"
+        description="Search 100,000+ active Central & State Government Jobs 2026 (Sarkari Naukri) in India. Get direct apply links, syllabus, eligibility, age limit & notification PDFs for SSC, UPSC, Railway RRB, Police & Bank exams."
+        keywords={[
+          'Sarkari Naukri 2026',
+          'Latest Government Jobs 2026',
+          'Government Jobs Notification',
+          'SSC CGL Recruitment 2026',
+          'UPSC Notification 2026',
+          'Railway RRB Vacancy',
+          'Sarkari Result',
+          'Bank PO Clerk Jobs',
+          'State PSC Vacancies',
+          'Police Bharti 2026',
+          'All India Govt Jobs'
+        ]}
+        canonicalUrl={`${SITE_DOMAIN}/government-jobs`}
+        ogType="website"
+        jsonLdSchemas={[itemListSchema, breadcrumbSchema]}
+      />
       
       {/* 1. Hero Section Banner */}
       <div className="relative bg-gradient-to-r from-slate-50 via-slate-50/90 to-blue-50/30 border-b border-slate-200/80 overflow-hidden py-5 sm:py-6">
@@ -287,47 +337,69 @@ export const GovJobsPublicListPage: React.FC = () => {
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-          <div className="max-w-xl lg:max-w-2xl space-y-2.5">
-            
-            {/* Main Headline */}
-            <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 leading-tight">
-              Government Jobs 2026
-            </h1>
-            
-            <p className="text-xs text-slate-600 leading-relaxed font-medium max-w-lg">
-              Find the latest government jobs, recruitment notifications, exam details, eligibility, syllabus, vacancies and free mock tests.
-            </p>
+          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+            <div className="max-w-xl lg:max-w-2xl space-y-2.5">
+              
+              {/* Main Headline */}
+              <div className="flex items-center gap-2 flex-wrap">
+                <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 leading-tight">
+                  Government Jobs 2026
+                </h1>
+                <span className="px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 text-[10px] font-extrabold uppercase border border-emerald-200">
+                  Official CMS Live
+                </span>
+              </div>
+              
+              <p className="text-xs text-slate-600 leading-relaxed font-medium max-w-lg">
+                Find the latest government jobs, recruitment notifications, exam details, eligibility, syllabus, vacancies and free mock tests.
+              </p>
 
-            {/* Filter Chips Bar */}
-            <div className="pt-1 flex flex-wrap items-center gap-1.5">
-              {filterPills.map((pill, idx) => {
-                const Icon = pill.icon;
-                const isActive = activeCategoryFilter === pill.label || (activeCategoryFilter === 'All' && pill.label === 'Latest Jobs');
-                return (
-                  <button
-                    key={idx}
-                    onClick={() => setActiveCategoryFilter(pill.label === 'Latest Jobs' || pill.label === 'All Categories' ? 'All' : pill.label)}
-                    className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold border transition-all flex items-center gap-1 ${
-                      isActive
-                        ? 'bg-blue-600 text-white border-blue-600 shadow-2xs'
-                        : 'bg-white/90 text-slate-700 border-slate-200 hover:border-slate-300 hover:bg-slate-50'
-                    }`}
-                  >
-                    {pill.badge ? (
-                      <span className={`text-[9px] font-black px-1 py-0.1 rounded ${
-                        isActive ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-700'
-                      }`}>
-                        {pill.badge}
-                      </span>
-                    ) : Icon ? (
-                      <Icon className={`w-3 h-3 ${isActive ? 'text-white' : 'text-blue-600'}`} />
-                    ) : null}
-                    <span>{pill.label}</span>
-                  </button>
-                );
-              })}
+              {/* Filter Chips Bar */}
+              <div className="pt-1 flex flex-wrap items-center gap-1.5">
+                {filterPills.map((pill, idx) => {
+                  const Icon = pill.icon;
+                  const isActive = activeCategoryFilter === pill.label || (activeCategoryFilter === 'All' && pill.label === 'Latest Jobs');
+                  return (
+                    <button
+                      key={idx}
+                      onClick={() => setActiveCategoryFilter(pill.label === 'Latest Jobs' || pill.label === 'All Categories' ? 'All' : pill.label)}
+                      className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold border transition-all flex items-center gap-1 ${
+                        isActive
+                          ? 'bg-blue-600 text-white border-blue-600 shadow-2xs'
+                          : 'bg-white/90 text-slate-700 border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+                      }`}
+                    >
+                      {pill.badge ? (
+                        <span className={`text-[9px] font-black px-1 py-0.1 rounded ${
+                          isActive ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-700'
+                        }`}>
+                          {pill.badge}
+                        </span>
+                      ) : Icon ? (
+                        <Icon className={`w-3 h-3 ${isActive ? 'text-white' : 'text-blue-600'}`} />
+                      ) : null}
+                      <span>{pill.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+
             </div>
 
+            {/* Quick Admin CMS Portal Link */}
+            <div className="shrink-0 pt-1">
+              <Link
+                to="/admin/login"
+                className="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-emerald-400 font-bold text-xs rounded-xl transition-all shadow-md flex items-center gap-2 border border-slate-700 group shrink-0"
+              >
+                <Shield className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform" />
+                <div className="text-left leading-tight">
+                  <div className="text-[11px] text-white font-extrabold">Govt Jobs Admin Login</div>
+                  <div className="text-[9px] text-emerald-400 font-medium">Manage Feeds & Notices</div>
+                </div>
+                <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-0.5 transition-transform" />
+              </Link>
+            </div>
           </div>
 
           {/* Featured Quick Apply Banner Bar (8 Colored Blocks Below Tags) */}
@@ -399,19 +471,21 @@ export const GovJobsPublicListPage: React.FC = () => {
           {/* Browse by State Card Box */}
           <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200/90 shadow-xs flex flex-col justify-between">
             <div>
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-3">
                 <h2 className="text-base font-bold text-slate-900">Browse by State</h2>
                 <button 
                   onClick={() => setSelectedState('All')}
                   className="text-xs font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1"
                 >
-                  <span>View All</span>
+                  <span>Reset Filter</span>
                   <ChevronRight className="w-3.5 h-3.5" />
                 </button>
               </div>
 
+
+
               <div className="grid grid-cols-2 gap-2">
-                {stateList.slice(0, 9).map((st, idx) => (
+                {stateList.slice(0, 8).map((st, idx) => (
                   <button
                     key={idx}
                     onClick={() => setSelectedState(selectedState === st.name ? 'All' : st.name)}
@@ -428,17 +502,6 @@ export const GovJobsPublicListPage: React.FC = () => {
                     <MapPin className="w-3 h-3 text-slate-400 shrink-0" />
                   </button>
                 ))}
-                
-                <button
-                  onClick={() => setSelectedState('All')}
-                  className="p-2 rounded-xl border border-blue-200 bg-blue-50/50 hover:bg-blue-100/50 text-left transition-all flex items-center justify-between"
-                >
-                  <div>
-                    <div className="text-[11px] font-extrabold text-blue-700">All States</div>
-                    <div className="text-[9px] text-blue-600 font-semibold">View All →</div>
-                  </div>
-                  <MapPin className="w-3 h-3 text-blue-500 shrink-0" />
-                </button>
               </div>
             </div>
           </div>
@@ -674,6 +737,32 @@ export const GovJobsPublicListPage: React.FC = () => {
                 </div>
               );
             })}
+          </div>
+        </div>
+
+        {/* 5. Official Government Recruitment Admin CMS Portal CTA */}
+        <div className="bg-gradient-to-r from-slate-900 via-emerald-950 to-slate-900 rounded-2xl p-6 sm:p-8 text-white shadow-lg border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="space-y-2 text-center md:text-left">
+            <div className="inline-flex items-center gap-1.5 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider">
+              <Shield className="w-3.5 h-3.5" />
+              <span>Glitread Government Recruitment CMS</span>
+            </div>
+            <h3 className="text-xl sm:text-2xl font-extrabold tracking-tight text-white">
+              Are you an authorized Government Recruitment Admin?
+            </h3>
+            <p className="text-xs text-slate-300 max-w-xl leading-relaxed">
+              Log in to the Admin Portal to publish new recruitment notices, edit vacancy criteria, upload exam syllabi, manage admit card links, and maintain JSON feeds.
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
+            <Link
+              to="/admin/login"
+              className="px-6 py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs sm:text-sm rounded-xl transition-all shadow-lg shadow-emerald-950/60 flex items-center gap-2"
+            >
+              <span>Login to Gov Jobs Admin Portal</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
 

@@ -10,6 +10,7 @@ import {
   DollarSign, 
   MapPin, 
   Clock, 
+  Globe,
   X 
 } from 'lucide-react';
 
@@ -20,6 +21,7 @@ export interface FilterState {
   departments: string[];
   companyTypes: string[];
   postedWithin: string;
+  languages?: string[];
 }
 
 interface JobFilterSidebarProps {
@@ -43,7 +45,8 @@ export const JobFilterSidebar: React.FC<JobFilterSidebarProps> = ({
     salaryRanges: false,
     departments: false,
     companyTypes: false,
-    postedWithin: false
+    postedWithin: false,
+    languages: false
   });
 
   const toggleSection = (key: string) => {
@@ -230,6 +233,39 @@ export const JobFilterSidebar: React.FC<JobFilterSidebarProps> = ({
                 <span>{option.label}</span>
               </label>
             ))}
+          </div>
+        )}
+      </div>
+
+      {/* Language Filter */}
+      <div className="space-y-3 pt-3 border-t border-slate-100">
+        <button
+          onClick={() => toggleSection('languages')}
+          className="w-full flex items-center justify-between font-semibold text-xs text-slate-800 uppercase tracking-wider text-left"
+        >
+          <span className="flex items-center gap-1.5">
+            <Globe className="w-3.5 h-3.5 text-blue-600" />
+            <span>Preferred Language</span>
+          </span>
+          {collapsed.languages ? <ChevronDown className="w-4 h-4 text-slate-400" /> : <ChevronUp className="w-4 h-4 text-slate-400" />}
+        </button>
+
+        {!collapsed.languages && (
+          <div className="space-y-2">
+            {['English', 'Hindi', 'Tamil', 'Telugu', 'Marathi', 'Gujarati', 'Bengali', 'Kannada'].map((lang) => {
+              const active = (filters.languages || []).includes(lang);
+              return (
+                <label key={lang} className="flex items-center gap-2.5 text-xs text-slate-700 cursor-pointer hover:text-slate-900 select-none">
+                  <input
+                    type="checkbox"
+                    checked={active}
+                    onChange={() => toggleArrayFilter('languages', lang)}
+                    className="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+                  />
+                  <span>{lang}</span>
+                </label>
+              );
+            })}
           </div>
         )}
       </div>
