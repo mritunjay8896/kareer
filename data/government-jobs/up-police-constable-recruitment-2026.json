@@ -1,0 +1,121 @@
+{
+  "id": "up-police-constable-recruitment-2026",
+  "slug": "up-police-constable-recruitment-2026",
+  "title": "UP Police Constable Recruitment 2026 (60,244 Posts)",
+  "organization": "Uttar Pradesh Police Recruitment and Promotion Board (UPPRPB)",
+  "department": "Department of Home Affairs, Govt of Uttar Pradesh",
+  "category": "Police",
+  "state": "Uttar Pradesh",
+  "postDate": "2026-07-25",
+  "updatedDate": "2026-08-05",
+  "status": "active",
+  "shortInformation": "Uttar Pradesh Police Recruitment & Promotion Board (UPPRPB) is inviting online applications for 60,244 Civil Police Constable positions. Candidates who passed 12th (Intermediate) from any recognized board in India are eligible to apply.",
+  "importantDates": {
+    "notificationDate": "25 Jul 2026",
+    "applicationStart": "27 Jul 2026",
+    "applicationLastDate": "25 Aug 2026",
+    "correctionStart": "27 Aug 2026",
+    "correctionLastDate": "29 Aug 2026",
+    "admitCardDate": "10 Sep 2026",
+    "examDate": "20 Sep 2026",
+    "resultDate": "To Be Announced"
+  },
+  "applicationFee": {
+    "general": 400,
+    "obc": 400,
+    "ews": 400,
+    "sc": 400,
+    "st": 400,
+    "female": 400,
+    "other": 400,
+    "paymentMode": "Online via Net Banking, BHIM UPI, Debit/Credit Card or E-Challan"
+  },
+  "ageLimit": {
+    "minimumAge": 18,
+    "maximumAge": 25,
+    "ageCalculationDate": "01 Jul 2026"
+  },
+  "ageRelaxation": [
+    { "category": "SC / ST (UP Domicile)", "relaxationYears": "5 Years" },
+    { "category": "OBC (UP Domicile)", "relaxationYears": "5 Years" },
+    { "category": "EWS (UP Domicile)", "relaxationYears": "3 Years" },
+    { "category": "Ex-Servicemen", "relaxationYears": "3 Years" }
+  ],
+  "vacancyDetails": {
+    "totalVacancy": 60244,
+    "note": "Domicile of Uttar Pradesh candidates get state reservation benefits. Other state candidates are treated under Unreserved category."
+  },
+  "postNames": [
+    "Civil Police Constable (Male)",
+    "Civil Police Constable (Female)"
+  ],
+  "categoryWiseVacancy": [
+    { "postName": "Constable Civil Police", "ur": 24102, "obc": 16264, "sc": 12650, "st": 1204, "ews": 6024, "other": 0, "total": 60244 }
+  ],
+  "eligibility": {
+    "educationalQualification": "10+2 (Intermediate) Pass from any recognized education board in India.",
+    "nationality": "Citizen of India.",
+    "experience": "No prior experience required.",
+    "physicalRequirements": "Male Height: 168 cm (General/OBC/SC), 160 cm (ST). Male Chest: 79-84 cm. Female Height: 152 cm (General/OBC/SC), 147 cm (ST). Physical Efficiency Test: Male 4.8 km run in 25 mins; Female 2.4 km run in 14 mins.",
+    "otherRequirements": "Physical Standard Test (PST) and Physical Efficiency Test (PET) verification."
+  },
+  "nationality": "Indian",
+  "howToApply": [
+    "Go to UPPRPB official portal (uppbpb.gov.in).",
+    "Click on 'Constable Direct Recruitment 2026 Application Portal'.",
+    "Fill registration form with basic personal and 12th qualification details.",
+    "Pay the application fee of ₹400.",
+    "Upload scanned photograph, signature, 10th and 12th certificates.",
+    "Submit final application and retain hard copy printout."
+  ],
+  "youtubeVideoId": "YIn_Yp2pM1k",
+  "applyOnlineUrl": "https://uppbpb.gov.in",
+  "officialNotificationUrl": "https://uppbpb.gov.in/notice/Constable_Recruitment_2026.pdf",
+  "officialWebsiteUrl": "https://uppbpb.gov.in",
+  "syllabus": [
+    {
+      "subject": "General Knowledge (सामान्य ज्ञान)",
+      "topics": ["Indian History", "Indian Constitution", "Agriculture", "Trade & Commerce", "Population, Environment & Urbanization", "UP Special GK", "Revenue & Police Administration", "Human Rights", "Internal Security & Terrorism"]
+    },
+    {
+      "subject": "General Hindi (सामान्य हिंदी)",
+      "topics": ["हिंदी भाषा का इतिहास", "व्याकरण (तद्भव-तत्सम, पर्यायवाची, विलोम)", "वाक्यांशों के लिए एक शब्द", "संधि, समास, रस, छंद, अलंकार", "प्रसिद्ध कवि एवं रचनाएं"]
+    },
+    {
+      "subject": "Numerical & Mental Ability (संख्यात्मक एवं मानसिक योग्यता)",
+      "topics": ["Number System", "Simplification", "Decimals & Fractions", "HCF & LCM", "Ratio & Proportion", "Percentage", "Profit & Loss", "Discount", "Simple & Compound Interest", "Average", "Time & Work"]
+    },
+    {
+      "subject": "Mental Aptitude / IQ / Reasoning (मानसिक अभिरुचि, बुद्धिलब्धि)",
+      "topics": ["Public Interest", "Law & Order", "Rule of Law", "Sensitivity towards Minorities", "Coding-Decoding", "Direction Sense", "Blood Relations", "Pattern Completion"]
+    }
+  ],
+  "examPattern": [
+    { "subject": "General Knowledge", "questions": 38, "marks": 76, "duration": "120 Mins (Combined)", "negativeMarking": "0.50 Marks", "mode": "Offline OMR Based Exam" },
+    { "subject": "General Hindi", "questions": 37, "marks": 74, "duration": "120 Mins (Combined)", "negativeMarking": "0.50 Marks", "mode": "Offline OMR Based Exam" },
+    { "subject": "Numerical & Mental Ability", "questions": 38, "marks": 76, "duration": "120 Mins (Combined)", "negativeMarking": "0.50 Marks", "mode": "Offline OMR Based Exam" },
+    { "subject": "Mental Aptitude / IQ / Reasoning", "questions": 37, "marks": 74, "duration": "120 Mins (Combined)", "negativeMarking": "0.50 Marks", "mode": "Offline OMR Based Exam" }
+  ],
+  "previousYearData": [
+    { "year": 2024, "vacancies": 60244, "applicants": 4817000, "appeared": 3200000, "selected": 60244 },
+    { "year": 2019, "vacancies": 49568, "applicants": 1938000, "appeared": 1500000, "selected": 49568 }
+  ],
+  "cutoffData": [
+    { "year": "2024 Written Exam", "category": "UR (Unreserved)", "cutoff": 214.0 },
+    { "year": "2024 Written Exam", "category": "OBC", "cutoff": 198.5 },
+    { "year": "2024 Written Exam", "category": "EWS", "cutoff": 187.0 },
+    { "year": "2024 Written Exam", "category": "SC", "cutoff": 172.0 },
+    { "year": "2024 Written Exam", "category": "ST", "cutoff": 148.0 }
+  ],
+  "topicWiseWeightage": [
+    { "subject": "General Hindi", "topic": "व्याकरण एवं संधि", "avgQuestions": 12 },
+    { "subject": "General Knowledge", "topic": "UP Special GK & Police System", "avgQuestions": 10 },
+    { "subject": "Reasoning", "topic": "Coding-Decoding & Direction Test", "avgQuestions": 14 }
+  ],
+  "mockTestId": "up-police-mock-1",
+  "mockTestUrl": "/mock-tests?exam=up-police",
+  "relatedJobs": ["ssc-cgl-recruitment-2026", "ibps-po-recruitment-2026"],
+  "createdAt": "2026-07-25T09:00:00Z",
+  "updatedAt": "2026-08-05T11:20:00Z",
+  "lastUpdatedBy": "admin-system"
+}

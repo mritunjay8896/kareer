@@ -59,24 +59,6 @@ export const LeftSidebarRail: React.FC<LeftSidebarRailProps> = ({
     <aside className="fixed left-0 top-[64px] bottom-0 z-30 w-16 bg-white/95 backdrop-blur-md border-r border-slate-200/80 hidden md:flex flex-col items-center justify-between py-3 shadow-xs transition-all duration-300">
       {/* Top Section: Quick Nav Icons */}
       <div className="w-full flex flex-col items-center gap-1.5 px-2">
-        
-        {/* Post Job Quick Action */}
-        <div className="relative group w-full flex justify-center mb-1">
-          <button
-            onClick={onOpenEmployer}
-            className="w-11 h-11 rounded-2xl bg-amber-400 hover:bg-amber-300 text-slate-950 flex items-center justify-center shadow-md shadow-amber-500/20 active:scale-95 transition-all cursor-pointer"
-            aria-label="Post Job"
-          >
-            <PlusCircle className="w-5 h-5 stroke-[2.5]" />
-          </button>
-          <div className="absolute left-full ml-3 px-3 py-1.5 bg-slate-900 text-amber-300 text-xs font-extrabold rounded-xl shadow-xl whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-200 z-50 translate-x-1 group-hover:translate-x-0 flex items-center gap-1.5 border border-slate-800">
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-            <span>Post Vacancy Free</span>
-          </div>
-        </div>
-
-        <div className="w-8 h-px bg-slate-200/80 my-1" />
-
         {/* Main Nav Items */}
         {mainNavItems.map((item) => {
           const IconComponent = item.icon;
@@ -89,8 +71,8 @@ export const LeftSidebarRail: React.FC<LeftSidebarRailProps> = ({
                 onClick={item.action}
                 className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${
                   active
-                    ? 'bg-blue-600 text-white shadow-xs font-bold'
-                    : 'text-slate-600 hover:text-blue-600 hover:bg-blue-50/80'
+                    ? 'bg-amber-400 text-slate-950 shadow-xs font-bold'
+                    : 'text-slate-600 hover:text-amber-600 hover:bg-amber-50/80'
                 }`}
               >
                 <IconComponent className="w-5 h-5 shrink-0" />

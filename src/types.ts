@@ -271,3 +271,136 @@ export interface SEOCategory {
   icon: string;
   items: { label: string; url: string; badge?: string }[];
 }
+
+export interface GovJobImportantDates {
+  notificationDate: string;
+  applicationStart: string;
+  applicationLastDate: string;
+  correctionStart?: string;
+  correctionLastDate?: string;
+  admitCardDate?: string;
+  examDate?: string;
+  resultDate?: string;
+}
+
+export interface GovJobApplicationFee {
+  general: number;
+  obc: number;
+  ews: number;
+  sc: number;
+  st: number;
+  female: number;
+  other: number;
+  paymentMode: string;
+}
+
+export interface GovJobAgeLimit {
+  minimumAge: number;
+  maximumAge: number;
+  ageCalculationDate: string;
+}
+
+export interface GovJobAgeRelaxation {
+  category: string;
+  relaxationYears: string;
+}
+
+export interface GovJobVacancyDetails {
+  totalVacancy: number;
+  note?: string;
+}
+
+export interface GovJobCategoryWiseVacancy {
+  postName: string;
+  ur: number;
+  obc: number;
+  sc: number;
+  st: number;
+  ews: number;
+  other: number;
+  total: number;
+}
+
+export interface GovJobEligibility {
+  educationalQualification: string;
+  nationality?: string;
+  experience?: string;
+  physicalRequirements?: string;
+  otherRequirements?: string;
+}
+
+export interface GovJobSyllabusSubject {
+  subject: string;
+  topics: string[];
+}
+
+export interface GovJobExamPatternSubject {
+  subject: string;
+  questions: number;
+  marks: number;
+  duration: string;
+  negativeMarking: string;
+  mode: string;
+}
+
+export interface GovJobPreviousYearData {
+  year: number | string;
+  vacancies: number;
+  applicants: number;
+  appeared: number;
+  selected: number;
+}
+
+export interface GovJobCutoffData {
+  year: string;
+  category: string;
+  cutoff: number | string;
+}
+
+export interface GovJobTopicWeightage {
+  subject: string;
+  topic: string;
+  avgQuestions: number;
+}
+
+export interface GovernmentJob {
+  id: string;
+  slug: string;
+  title: string;
+  organization: string;
+  department: string;
+  category: 'SSC' | 'Banking' | 'Railways' | 'UPSC' | 'Police' | 'Teaching' | 'Defense' | 'State PSC' | 'Other';
+  state: string;
+  postDate: string;
+  updatedDate: string;
+  status: 'draft' | 'active' | 'closed' | 'upcoming';
+  shortInformation: string;
+  importantDates: GovJobImportantDates;
+  applicationFee: GovJobApplicationFee;
+  ageLimit: GovJobAgeLimit;
+  ageRelaxation: GovJobAgeRelaxation[];
+  vacancyDetails: GovJobVacancyDetails;
+  postNames: string[];
+  categoryWiseVacancy: GovJobCategoryWiseVacancy[];
+  eligibility: GovJobEligibility;
+  nationality: string;
+  howToApply: string[];
+  youtubeVideoId?: string;
+  applyOnlineUrl?: string;
+  officialNotificationUrl?: string;
+  officialWebsiteUrl?: string;
+  admitCardUrl?: string;
+  resultUrl?: string;
+  syllabus: GovJobSyllabusSubject[];
+  examPattern: GovJobExamPatternSubject[];
+  previousYearData: GovJobPreviousYearData[];
+  cutoffData: GovJobCutoffData[];
+  topicWiseWeightage: GovJobTopicWeightage[];
+  mockTestId?: string;
+  mockTestUrl?: string;
+  relatedJobs?: string[];
+  createdAt?: string;
+  updatedAt?: string;
+  lastUpdatedBy?: string;
+}
+

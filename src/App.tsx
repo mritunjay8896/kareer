@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import { CandidateRoute, EmployerRoute } from './components/Auth/ProtectedRoute';
+import { CandidateRoute, EmployerRoute, AdminRoute } from './components/Auth/ProtectedRoute';
 
 import { Navbar } from './components/Navbar/Navbar';
 import { LeftSidebarRail } from './components/Navbar/LeftSidebarRail';
@@ -24,6 +24,17 @@ import { ProfilePage } from './pages/ProfilePage';
 import { CandidateLoginPage } from './pages/CandidateLoginPage';
 import { CandidateRegisterPage } from './pages/CandidateRegisterPage';
 import { NotFoundPage } from './pages/NotFoundPage';
+
+// Government Jobs Pages
+import { GovJobsPublicListPage } from './pages/GovJobsPublicListPage';
+import { GovJobDetailPage } from './pages/GovJobDetailPage';
+
+// Admin CMS Pages
+import { AdminLoginPage } from './pages/admin/AdminLoginPage';
+import { AdminDashboardLayout } from './pages/admin/AdminDashboardLayout';
+import { AdminDashboardPage } from './pages/admin/AdminDashboardPage';
+import { AdminJobsListPage } from './pages/admin/AdminJobsListPage';
+import { AdminJobFormPage } from './pages/admin/AdminJobFormPage';
 
 // Specialized Candidate Pages
 import { CandidateDashboardPage } from './pages/candidate/CandidateDashboardPage';
@@ -86,6 +97,7 @@ function MainAppContent() {
   const [applyModalOpen, setApplyModalOpen] = useState(false);
 
   const isEmployerRoute = location.pathname.startsWith('/employer') || location.pathname.startsWith('/employers');
+  const isAdminRoute = location.pathname.startsWith('/admin');
 
   // Helper to trigger toast messages
   const addToast = (type: 'success' | 'error' | 'info', title: string, description?: string) => {
@@ -244,11 +256,11 @@ function MainAppContent() {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 flex flex-col font-sans selection:bg-blue-600 selection:text-white">
-      {/* Universal Navbar (Automatically switches between Candidate and Employer Navbars) */}
-      <Navbar />
+      {/* Universal Navbar for Candidate & Employer experience */}
+      {!isAdminRoute && <Navbar />}
 
       {/* Slim Vertical Left Menu Rail for Candidate Pages */}
-      {!isEmployerRoute && (
+      {!isEmployerRoute && !isAdminRoute && (
         <LeftSidebarRail
           currentUser={userName}
           userRole={userRole}
@@ -259,8 +271,22 @@ function MainAppContent() {
       )}
 
       {/* Main Container */}
-      <main className={`flex-1 pt-[64px] ${!isEmployerRoute ? 'md:pl-16' : ''}`}>
+      <main className={`flex-1 ${!isAdminRoute ? 'pt-[64px]' : ''} ${!isEmployerRoute && !isAdminRoute ? 'md:pl-16' : ''}`}>
         <Routes>
+          {/* GOVERNMENT JOBS PUBLIC ROUTES */}
+          <Route path="/government-jobs" element={<GovJobsPublicListPage />} />
+          <Route path="/government-jobs/:slug" element={<GovJobDetailPage />} />
+
+          {/* ADMIN CMS ROUTES */}
+          <Route path="/admin/login" element={<AdminLoginPage />} />
+          <Route path="/admin" element={<AdminRoute><AdminDashboardLayout /></AdminRoute>}>
+            <Route index element={<Navigate to="/admin/dashboard" replace />} />
+            <Route path="dashboard" element={<AdminDashboardPage />} />
+            <Route path="jobs" element={<AdminJobsListPage />} />
+            <Route path="jobs/new" element={<AdminJobFormPage />} />
+            <Route path="jobs/edit/:id" element={<AdminJobFormPage />} />
+          </Route>
+
           {/* CANDIDATE ROUTES */}
           <Route
             path="/"
@@ -279,7 +305,6 @@ function MainAppContent() {
           />
           <Route path="/jobs" element={<JobsPage jobsList={jobs} onApplyJob={handleApplyJob} onBookmarkJob={handleBookmarkJob} bookmarkedJobIds={bookmarkedJobIds} />} />
           <Route path="/internships" element={<JobsPage jobsList={jobs} onApplyJob={handleApplyJob} onBookmarkJob={handleBookmarkJob} bookmarkedJobIds={bookmarkedJobIds} />} />
-          <Route path="/government-jobs" element={<JobsPage jobsList={jobs} onApplyJob={handleApplyJob} onBookmarkJob={handleBookmarkJob} bookmarkedJobIds={bookmarkedJobIds} />} />
           <Route path="/gulf-jobs" element={<JobsPage jobsList={jobs} onApplyJob={handleApplyJob} onBookmarkJob={handleBookmarkJob} bookmarkedJobIds={bookmarkedJobIds} />} />
           <Route path="/mock-tests" element={<JobsPage jobsList={jobs} onApplyJob={handleApplyJob} onBookmarkJob={handleBookmarkJob} bookmarkedJobIds={bookmarkedJobIds} />} />
           <Route path="/job/:slug" element={<JobDetailPage jobsList={jobs} onApplyJob={handleApplyJob} onBookmarkJob={handleBookmarkJob} bookmarkedJobIds={bookmarkedJobIds} />} />
@@ -327,7 +352,7 @@ function MainAppContent() {
       </main>
 
       {/* Footer (Rendered for candidate experience) */}
-      {!isEmployerRoute && (
+      {!isEmployerRoute && !isAdminRoute && (
         <Footer
           onSubscribeNewsletter={handleSubscribeNewsletter}
           onLinkClick={handleNavClick}

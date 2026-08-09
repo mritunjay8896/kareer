@@ -1,0 +1,120 @@
+{
+  "id": "ibps-po-recruitment-2026",
+  "slug": "ibps-po-recruitment-2026",
+  "title": "IBPS PO / Management Trainee Recruitment 2026 (4,455 Posts)",
+  "organization": "Institute of Banking Personnel Selection (IBPS)",
+  "department": "Participating Public Sector Banks across India",
+  "category": "Banking",
+  "state": "All India",
+  "postDate": "2026-08-03",
+  "updatedDate": "2026-08-07",
+  "status": "active",
+  "shortInformation": "Institute of Banking Personnel Selection (IBPS) has released the official CRP PO/MT-XIV notification for 4,455 Probationary Officer / Management Trainee vacancies across 11 participating public sector banks including Bank of Baroda, Punjab National Bank, Canara Bank, and Union Bank of India.",
+  "importantDates": {
+    "notificationDate": "01 Aug 2026",
+    "applicationStart": "03 Aug 2026",
+    "applicationLastDate": "23 Aug 2026",
+    "correctionStart": "24 Aug 2026",
+    "correctionLastDate": "25 Aug 2026",
+    "admitCardDate": "12 Sep 2026",
+    "examDate": "19 Sep 2026 & 20 Sep 2026 (Prelims)",
+    "resultDate": "October 2026"
+  },
+  "applicationFee": {
+    "general": 850,
+    "obc": 850,
+    "ews": 850,
+    "sc": 175,
+    "st": 175,
+    "female": 850,
+    "other": 175,
+    "paymentMode": "Online via BHIM UPI, Net Banking, Credit/Debit Card"
+  },
+  "ageLimit": {
+    "minimumAge": 20,
+    "maximumAge": 30,
+    "ageCalculationDate": "01 Aug 2026"
+  },
+  "ageRelaxation": [
+    { "category": "SC / ST", "relaxationYears": "5 Years" },
+    { "category": "OBC (Non-Creamy Layer)", "relaxationYears": "3 Years" },
+    { "category": "PwBD", "relaxationYears": "10 Years" },
+    { "category": "Ex-Servicemen", "relaxationYears": "5 Years" }
+  ],
+  "vacancyDetails": {
+    "totalVacancy": 4455,
+    "note": "Bank-wise participating banks: PNB (1000), Bank of Baroda (800), Canara Bank (750), Union Bank of India (500), Central Bank of India (1405)."
+  },
+  "postNames": [
+    "Probationary Officer (PO)",
+    "Management Trainee (MT)"
+  ],
+  "categoryWiseVacancy": [
+    { "postName": "Probationary Officer / MT", "ur": 1812, "obc": 1195, "sc": 665, "st": 332, "ews": 451, "other": 0, "total": 4455 }
+  ],
+  "eligibility": {
+    "educationalQualification": "Degree (Graduation) in any discipline from a University recognized by the Govt. Of India.",
+    "nationality": "Citizen of India.",
+    "experience": "No prior banking experience required.",
+    "physicalRequirements": "No physical height/chest criteria required.",
+    "otherRequirements": "Computer Literacy: Operating and working knowledge in computer systems is mandatory."
+  },
+  "nationality": "Indian",
+  "howToApply": [
+    "Visit official IBPS online application portal (ibps.in).",
+    "Click on 'CRP PO/MT-XIV' and register with Email ID and Mobile Number.",
+    "Upload thumb impression, handwritten declaration, passport photo, and signature.",
+    "Fill academic graduation marks and bank preference rankings.",
+    "Pay application fee of ₹850 (₹175 for SC/ST/PwBD).",
+    "Submit and keep a printed copy of application form."
+  ],
+  "youtubeVideoId": "YIn_Yp2pM1k",
+  "applyOnlineUrl": "https://ibps.in",
+  "officialNotificationUrl": "https://ibps.in/wp-content/uploads/Detailed_Notification_PO_MT_XIV.pdf",
+  "officialWebsiteUrl": "https://ibps.in",
+  "syllabus": [
+    {
+      "subject": "Reasoning Ability",
+      "topics": ["Seating Arrangement & Puzzles", "Syllogism", "Inequalities", "Input-Output", "Data Sufficiency", "Blood Relations", "Direction Sense"]
+    },
+    {
+      "subject": "Quantitative Aptitude",
+      "topics": ["Data Interpretation (Bar, Line, Pie, Caselet)", "Number Series", "Quadratic Equations", "Approximation & Simplification", "Arithmetic Problems"]
+    },
+    {
+      "subject": "English Language",
+      "topics": ["Reading Comprehension", "Cloze Test", "Error Detection", "Sentence Rearrangement", "Fillers & Vocabulary"]
+    },
+    {
+      "subject": "General / Economy / Banking Awareness (Mains)",
+      "topics": ["Financial Awareness", "RBI Notifications & Monetary Policy", "Current Affairs (Last 6 Months)", "Banking Terms & Capital Markets"]
+    }
+  ],
+  "examPattern": [
+    { "subject": "English Language (Prelims)", "questions": 30, "marks": 30, "duration": "20 Mins", "negativeMarking": "0.25 Marks", "mode": "Online CBT" },
+    { "subject": "Quantitative Aptitude (Prelims)", "questions": 35, "marks": 35, "duration": "20 Mins", "negativeMarking": "0.25 Marks", "mode": "Online CBT" },
+    { "subject": "Reasoning Ability (Prelims)", "questions": 35, "marks": 35, "duration": "20 Mins", "negativeMarking": "0.25 Marks", "mode": "Online CBT" }
+  ],
+  "previousYearData": [
+    { "year": 2025, "vacancies": 4455, "applicants": 620000, "appeared": 480000, "selected": 4455 },
+    { "year": 2024, "vacancies": 3049, "applicants": 580000, "appeared": 450000, "selected": 3049 }
+  ],
+  "cutoffData": [
+    { "year": "2025 Prelims", "category": "UR (Unreserved)", "cutoff": 54.25 },
+    { "year": "2025 Prelims", "category": "OBC", "cutoff": 54.25 },
+    { "year": "2025 Prelims", "category": "EWS", "cutoff": 54.25 },
+    { "year": "2025 Prelims", "category": "SC", "cutoff": 47.50 },
+    { "year": "2025 Prelims", "category": "ST", "cutoff": 41.25 }
+  ],
+  "topicWiseWeightage": [
+    { "subject": "Reasoning Ability", "topic": "Puzzles & Seating Arrangement", "avgQuestions": 20 },
+    { "subject": "Quantitative Aptitude", "topic": "Data Interpretation Sets", "avgQuestions": 15 },
+    { "subject": "English Language", "topic": "Reading Comprehension Passages", "avgQuestions": 10 }
+  ],
+  "mockTestId": "ibps-po-mock-1",
+  "mockTestUrl": "/mock-tests?exam=ibps-po",
+  "relatedJobs": ["ssc-cgl-recruitment-2026", "up-police-constable-recruitment-2026"],
+  "createdAt": "2026-08-03T08:00:00Z",
+  "updatedAt": "2026-08-07T16:00:00Z",
+  "lastUpdatedBy": "admin-system"
+}

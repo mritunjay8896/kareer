@@ -153,19 +153,7 @@ export const CandidateNavbar: React.FC = () => {
           </nav>
         </div>
 
-        {/* Center: Quick Search Input (Desktop) */}
-        <div className="hidden xl:flex items-center flex-1 max-w-xs mx-2">
-          <form onSubmit={handleSearchSubmit} className="relative w-full">
-            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search jobs, skills, companies..."
-              className="w-full bg-slate-100/80 hover:bg-slate-100 text-xs text-slate-900 pl-8 pr-3 py-1.5 rounded-xl border border-slate-200/80 focus:border-blue-500 focus:bg-white outline-none transition-all placeholder:text-slate-400"
-            />
-          </form>
-        </div>
+
 
         {/* Right Header Actions */}
         <div className="hidden md:flex items-center gap-2 shrink-0">
@@ -251,13 +239,6 @@ export const CandidateNavbar: React.FC = () => {
                 className="px-3.5 py-1.5 text-xs font-bold text-slate-700 hover:text-blue-600 hover:bg-slate-100/80 rounded-xl transition-all cursor-pointer"
               >
                 Candidate Log In
-              </Link>
-              <Link
-                to="/register"
-                className="px-3.5 py-1.5 text-xs font-extrabold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-xs transition-all flex items-center gap-1 cursor-pointer active:scale-95 whitespace-nowrap"
-              >
-                <span>Register Free</span>
-                <Sparkles className="w-3.5 h-3.5" />
               </Link>
             </div>
           )}

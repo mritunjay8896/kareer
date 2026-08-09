@@ -1,0 +1,136 @@
+{
+  "id": "ssc-cgl-recruitment-2026",
+  "slug": "ssc-cgl-recruitment-2026",
+  "title": "SSC CGL Recruitment 2026 Notice (17,727 Posts)",
+  "organization": "Staff Selection Commission (SSC)",
+  "department": "Department of Personnel & Training",
+  "category": "SSC",
+  "state": "All India",
+  "postDate": "2026-08-01",
+  "updatedDate": "2026-08-08",
+  "status": "active",
+  "shortInformation": "Staff Selection Commission (SSC) has released the official recruitment notification for Combined Graduate Level (CGL) Examination 2026 for 17,727 Group B & Group C officer vacancies in Central Ministries and Departments. Eligible graduates across India can apply online before the last date.",
+  "importantDates": {
+    "notificationDate": "01 Aug 2026",
+    "applicationStart": "01 Aug 2026",
+    "applicationLastDate": "31 Aug 2026",
+    "correctionStart": "03 Sep 2026",
+    "correctionLastDate": "05 Sep 2026",
+    "admitCardDate": "15 Sep 2026",
+    "examDate": "22 Sep 2026 - 10 Oct 2026",
+    "resultDate": "To Be Announced"
+  },
+  "applicationFee": {
+    "general": 100,
+    "obc": 100,
+    "ews": 100,
+    "sc": 0,
+    "st": 0,
+    "female": 0,
+    "other": 0,
+    "paymentMode": "Online via Net Banking, BHIM UPI, Debit/Credit Card"
+  },
+  "ageLimit": {
+    "minimumAge": 18,
+    "maximumAge": 32,
+    "ageCalculationDate": "01 Aug 2026"
+  },
+  "ageRelaxation": [
+    { "category": "SC / ST", "relaxationYears": "5 Years" },
+    { "category": "OBC", "relaxationYears": "3 Years" },
+    { "category": "PwD (Unreserved)", "relaxationYears": "10 Years" },
+    { "category": "PwD (OBC)", "relaxationYears": "13 Years" },
+    { "category": "PwD (SC/ST)", "relaxationYears": "15 Years" },
+    { "category": "Ex-Servicemen", "relaxationYears": "3 Years after deduction of military service" }
+  ],
+  "vacancyDetails": {
+    "totalVacancy": 17727,
+    "note": "Vacancies are tentative and subject to change by Ministry allocations."
+  },
+  "postNames": [
+    "Assistant Section Officer (ASO)",
+    "Inspector of Income Tax (CBDT)",
+    "Central Excise Inspector (CBIC)",
+    "Assistant Enforcement Officer (ED)",
+    "Sub Inspector (CBI)",
+    "Divisional Accountant (CAG)",
+    "Auditor & Accountant",
+    "Tax Assistant"
+  ],
+  "categoryWiseVacancy": [
+    { "postName": "Assistant Section Officer (CSS)", "ur": 380, "obc": 250, "sc": 140, "st": 70, "ews": 90, "other": 20, "total": 950 },
+    { "postName": "Inspector (Income Tax)", "ur": 180, "obc": 120, "sc": 70, "st": 35, "ews": 45, "other": 10, "total": 460 },
+    { "postName": "Inspector (Central Excise)", "ur": 1200, "obc": 800, "sc": 450, "st": 220, "ews": 280, "other": 50, "total": 3000 },
+    { "postName": "Auditor & Accountant (CAG)", "ur": 2100, "obc": 1400, "sc": 800, "st": 400, "ews": 500, "other": 100, "total": 5300 },
+    { "postName": "Tax Assistant & Executive", "ur": 3200, "obc": 2150, "sc": 1200, "st": 600, "ews": 700, "other": 167, "total": 8017 }
+  ],
+  "eligibility": {
+    "educationalQualification": "Bachelor Degree (Graduation) in any discipline from a recognized University in India.",
+    "nationality": "Citizen of India, Subject of Nepal, or Subject of Bhutan.",
+    "experience": "No prior work experience required. Fresh graduates can apply.",
+    "physicalRequirements": "Height: 157.5 cm (Male), 152 cm (Female) required only for Inspector (Central Excise / Examiner / Preventive Officer) and Sub-Inspector (CBI).",
+    "otherRequirements": "Data Entry Speed Test (DEST) qualification required for Tax Assistant posts."
+  },
+  "nationality": "Indian",
+  "howToApply": [
+    "Visit the official Staff Selection Commission website (ssc.gov.in).",
+    "Complete One-Time Registration (OTR) if not registered previously.",
+    "Log in using your Registration Number and Password.",
+    "Click on 'Apply' under Combined Graduate Level Examination 2026.",
+    "Fill in basic details, select examination center preferences, and upload passport photo and signature.",
+    "Pay the application fee of ₹100 via UPI / Net Banking (Exempted for SC/ST/Female candidates).",
+    "Submit the online form and download the printout for future reference."
+  ],
+  "youtubeVideoId": "YIn_Yp2pM1k",
+  "applyOnlineUrl": "https://ssc.gov.in",
+  "officialNotificationUrl": "https://ssc.gov.in/api/attachment/uploads/masterdatas/noticeStdfs/Notice_CGL_2026.pdf",
+  "officialWebsiteUrl": "https://ssc.gov.in",
+  "syllabus": [
+    {
+      "subject": "General Intelligence & Reasoning",
+      "topics": ["Analogies", "Spatial Orientation", "Venn Diagrams", "Coding-Decoding", "Syllogism", "Blood Relations", "Non-Verbal Series"]
+    },
+    {
+      "subject": "General Awareness",
+      "topics": ["Indian History", "Polity & Constitution", "Indian Economy", "Geography", "General Science", "Current Affairs (National & International)", "Static GK"]
+    },
+    {
+      "subject": "Quantitative Aptitude",
+      "topics": ["Number Systems", "Percentages", "Ratio & Proportion", "Profit & Loss", "Simple & Compound Interest", "Algebra", "Geometry & Mensuration", "Trigonometry", "Data Interpretation"]
+    },
+    {
+      "subject": "English Comprehension",
+      "topics": ["Vocabulary & Synonyms/Antonyms", "Grammar & Error Spotting", "Cloze Test", "Reading Comprehension", "Idioms & Phrases", "One Word Substitution"]
+    }
+  ],
+  "examPattern": [
+    { "subject": "General Intelligence & Reasoning", "questions": 25, "marks": 50, "duration": "60 Mins (Combined)", "negativeMarking": "0.50 Marks", "mode": "Online Computer Based Test (CBT)" },
+    { "subject": "General Awareness", "questions": 25, "marks": 50, "duration": "60 Mins (Combined)", "negativeMarking": "0.50 Marks", "mode": "Online Computer Based Test (CBT)" },
+    { "subject": "Quantitative Aptitude", "questions": 25, "marks": 50, "duration": "60 Mins (Combined)", "negativeMarking": "0.50 Marks", "mode": "Online Computer Based Test (CBT)" },
+    { "subject": "English Comprehension", "questions": 25, "marks": 50, "duration": "60 Mins (Combined)", "negativeMarking": "0.50 Marks", "mode": "Online Computer Based Test (CBT)" }
+  ],
+  "previousYearData": [
+    { "year": 2025, "vacancies": 17727, "applicants": 2850000, "appeared": 1420000, "selected": 17727 },
+    { "year": 2024, "vacancies": 8415, "applicants": 2480000, "appeared": 1210000, "selected": 8415 },
+    { "year": 2023, "vacancies": 8440, "applicants": 2470000, "appeared": 1230000, "selected": 8440 }
+  ],
+  "cutoffData": [
+    { "year": "2025 Tier 1", "category": "UR (Unreserved)", "cutoff": 137.5 },
+    { "year": "2025 Tier 1", "category": "OBC", "cutoff": 132.0 },
+    { "year": "2025 Tier 1", "category": "EWS", "cutoff": 128.5 },
+    { "year": "2025 Tier 1", "category": "SC", "cutoff": 113.2 },
+    { "year": "2025 Tier 1", "category": "ST", "cutoff": 105.8 }
+  ],
+  "topicWiseWeightage": [
+    { "subject": "Quantitative Aptitude", "topic": "Algebra & Geometry", "avgQuestions": 6 },
+    { "subject": "Quantitative Aptitude", "topic": "Data Interpretation", "avgQuestions": 4 },
+    { "subject": "General Awareness", "topic": "Current Affairs & Static GK", "avgQuestions": 8 },
+    { "subject": "Reasoning", "topic": "Coding-Decoding & Analogies", "avgQuestions": 5 }
+  ],
+  "mockTestId": "ssc-cgl-mock-1",
+  "mockTestUrl": "/mock-tests?exam=ssc-cgl",
+  "relatedJobs": ["ibps-po-recruitment-2026", "up-police-constable-recruitment-2026"],
+  "createdAt": "2026-08-01T10:00:00Z",
+  "updatedAt": "2026-08-08T14:30:00Z",
+  "lastUpdatedBy": "admin-system"
+}

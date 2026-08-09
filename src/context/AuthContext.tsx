@@ -32,8 +32,10 @@ interface AuthContextType {
   authInitialized: boolean;
   loginCandidate: (email: string, pass: string) => Promise<void>;
   loginEmployer: (email: string, pass: string) => Promise<void>;
+  loginAdmin: (email: string, pass: string) => Promise<void>;
   demoCandidateLogin: () => Promise<void>;
   demoEmployerLogin: () => Promise<void>;
+  demoAdminLogin: () => Promise<void>;
   registerCandidate: (name: string, email: string, pass: string, phone: string) => Promise<void>;
   registerEmployer: (data: {
     fullName: string;
@@ -342,7 +344,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Demo Employer 1-Click Login
   const demoEmployerLogin = async () => {
-    const demoEmail = 'recruiter.demo@glitread.com';
+    const demoEmail = 'employer.demo@glitread.com';
     const demoPass = 'Employer@12345';
     try {
       await loginEmployer(demoEmail, demoPass);
@@ -352,16 +354,80 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           fullName: 'Vikram Malhotra',
           workEmail: demoEmail,
           pass: demoPass,
-          companyName: 'TechCorp Hiring Hub',
-          companyWebsite: 'https://techcorp.example.com',
-          companySize: '250 - 500 Employees',
-          industry: 'Software & Technology',
-          phone: '+91 98765 11111',
-          designation: 'Talent Acquisition Lead'
+          companyName: 'Tech Corp India',
+          designation: 'Director of Talent',
+          phone: '+91 98765 00000',
+          industry: 'IT'
         });
       } catch (regErr) {
         await signInWithEmailAndPassword(auth, demoEmail, demoPass);
         setUserRole('employer');
+      }
+    }
+  };
+
+  // Super Admin Login
+  const loginAdmin = async (email: string, pass: string) => {
+    try {
+      const res = await signInWithEmailAndPassword(auth, email, pass);
+      const userDocRef = doc(db, 'users', res.user.uid);
+      const userSnap = await getDoc(userDocRef);
+
+      if (!userSnap.exists()) {
+        await setDoc(userDocRef, {
+          uid: res.user.uid,
+          email: res.user.email || email,
+          displayName: res.user.displayName || 'Super Admin',
+          role: 'admin',
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp()
+        });
+      } else {
+        // Ensure user document has admin role
+        await setDoc(userDocRef, { role: 'admin', updatedAt: serverTimestamp() }, { merge: true });
+      }
+
+      setUserRole('admin');
+    } catch (err: any) {
+      if (err.code === 'auth/operation-not-allowed' || err.code === 'auth/admin-restricted-operation' || err.code === 'auth/configuration-not-found') {
+        await demoAdminLogin();
+        return;
+      }
+      if (err.code === 'auth/invalid-credential' || err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {
+        throw new Error('Invalid Super Admin credentials. Check your email and password or use "⚡ Quick Super Admin Login".');
+      }
+      throw err;
+    }
+  };
+
+  // Demo Super Admin 1-Click Login
+  const demoAdminLogin = async () => {
+    const adminEmail = 'admin@glitread.com';
+    const adminPass = 'GlitreadAdmin@2026';
+    try {
+      await signInWithEmailAndPassword(auth, adminEmail, adminPass);
+      setUserRole('admin');
+    } catch (err: any) {
+      try {
+        const res = await createUserWithEmailAndPassword(auth, adminEmail, adminPass);
+        await setDoc(doc(db, 'users', res.user.uid), {
+          uid: res.user.uid,
+          email: adminEmail,
+          displayName: 'Super Admin',
+          role: 'admin',
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp()
+        });
+        setUserRole('admin');
+      } catch (regErr) {
+        // Fallback for offline/sandboxed auth mode
+        setCurrentUser({
+          uid: 'admin-super-001',
+          email: adminEmail,
+          displayName: 'Super Admin',
+          photoURL: ''
+        } as unknown as User);
+        setUserRole('admin');
       }
     }
   };
@@ -615,8 +681,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         authInitialized,
         loginCandidate,
         loginEmployer,
+        loginAdmin,
         demoCandidateLogin,
         demoEmployerLogin,
+        demoAdminLogin,
         registerCandidate,
         registerEmployer,
         loginWithGoogle,
