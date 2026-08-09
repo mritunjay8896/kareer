@@ -23,6 +23,7 @@ import { AppliedJobsPage } from './pages/AppliedJobsPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { CandidateLoginPage } from './pages/CandidateLoginPage';
 import { CandidateRegisterPage } from './pages/CandidateRegisterPage';
+import { NotFoundPage } from './pages/NotFoundPage';
 
 // Specialized Candidate Pages
 import { CandidateDashboardPage } from './pages/candidate/CandidateDashboardPage';
@@ -321,7 +322,7 @@ function MainAppContent() {
           <Route path="/employer/settings" element={<EmployerRoute><EmployerSettingsPage /></EmployerRoute>} />
 
           {/* Catch-all fallback */}
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
 
